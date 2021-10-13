@@ -14,48 +14,65 @@ const notIncludedName = () => { // !options || sem opção incluedNames.
   return objetoRetornado;
 };
 
-const includeNames = () => {
+const includeNames = () => { // Se o parametro possui incluedName.
+  const regioes = Object.keys(notIncludedName());
   const objetoRetornado = { };
-  const ne = species.filter((specie) => specie.location === 'NE')
-    .map((mapNe) => mapNe.name); // aqui to recebendo só o nome das espécies
-    // .reduce((acc, curr) => acc[curr] = species.filter((specie) => specie.name === curr)
-    //   .map((specie) => specie.residents.name), {});
-
-  // objetoRetornado.NW = species.filter((specie) => specie.location === 'NW')
-  //   .map((mapNw) => mapNw.name);
-  // objetoRetornado.SE = species.filter((specie) => specie.location === 'SE')
-  //   .map((mapSe) => mapSe.name);
-  // objetoRetornado.SW = species.filter((specie) => specie.location === 'SW')
-  //   .map((mapSw) => mapSw.name);
-  console.log(ne);
-  objetoRetornado.NE = ne;
+  regioes.forEach((regiao) => {
+    const regis = species.filter((specie) => specie.location === regiao)
+      .reduce((acc, curr) => {
+        acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name) }));
+        return acc;
+      }, []);
+    objetoRetornado[regiao] = regis;
+  });
   return objetoRetornado;
 };
 
-console.log(includeNames());
-// console.log(getAnimalMap());
-// console.log(getAnimalMap({ sex: 'female' }));
+const includeSorted = () => { // Se o parametro possui sex; // mas tem que fazer a verificação do sexo
+  const regioes = Object.keys(notIncludedName());
+  const objetoRetornado = { };
+  regioes.forEach((regiao) => {
+    const regis = species.filter((specie) => specie.location === regiao)
+      .reduce((acc, curr) => {
+        acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name).sort() }));
+        return acc;
+      }, []);
+    objetoRetornado[regiao] = regis;
+  });
+  return objetoRetornado;
+};
 
-// const incluidedSex = (options) => {
-//   console.log(options.sex);
-//   return species.map((specie) => specie)
-//     .map((resident) => resident.residents).flat()
-//     .filter((resident) => resident.sex === options.sex);
-// };
-// console.log(incluidedSex());
-// console.log(incluidedSex({ sex: 'female' }));
+const includeSex = (param) => { // Se o parametro possui sex; // mas tem que fazer a verificação do sexo
+  const regioes = Object.keys(notIncludedName());
+  const objetoRetornado = { };
+  regioes.forEach((regiao) => {
+    const regis = species.filter((specie) => specie.location === regiao)
+      .reduce((acc, curr) => {
+        acc.push(({ [curr.name]: curr.residents
+          .filter((resident) => resident.sex === param.sex)
+          .map((teste) => teste.name).sort(),
+        }));
+        return acc;
+      }, []);
+    objetoRetornado[regiao] = regis;
+  });
+  // return objetoRetornado.NE
+  console.log(objetoRetornado.NW);
+  return objetoRetornado;
+};
+// console.log(objetoIncludeSex);
+console.log(includeSex({ sex: 'female' }));
 
 function getAnimalMap(options) { // função que chama funções
-  if (!options) {
+  // const { includeNames, sorted, sex} = options;
+  if (!options || !options.includeNames) {
     return notIncludedName();
   }
-  if (options.sex) {
-    return notIncludedName();
+  if (includeNames) {
+    return includeNames();
   }
-  if (options.includeNames === true) {
-
+  if (options.sorted) {
+    return includeSorted();
   }
 }
-// console.log(includeNames());
-
 module.exports = getAnimalMap;
