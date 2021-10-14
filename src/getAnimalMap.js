@@ -28,51 +28,63 @@ const includeNames = () => { // Se o parametro possui incluedName.
   return objetoRetornado;
 };
 
-const includeSorted = () => { // Se o parametro possui sex; // mas tem que fazer a verificação do sexo
-  const regioes = Object.keys(notIncludedName());
-  const objetoRetornado = { };
-  regioes.forEach((regiao) => {
-    const regis = species.filter((specie) => specie.location === regiao)
-      .reduce((acc, curr) => {
-        acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name).sort() }));
-        return acc;
-      }, []);
-    objetoRetornado[regiao] = regis;
-  });
-  return objetoRetornado;
-};
+// const includeSorted = () => { // sim, agora quero ver como incluo essa função
+//   const regioes = Object.keys(notIncludedName());
+//   const objetoRetornado = { };
+//   regioes.forEach((regiao) => {
+//     const regis = species.filter((specie) => specie.location === regiao)
+//       .reduce((acc, curr) => {
+//         acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name).sort() }));
+//         return acc;
+//       }, []);
+//     objetoRetornado[regiao] = regis;
+//   });
+//   return objetoRetornado;
+// };
 
-const includeSex = (param) => { // Se o parametro possui sex; // mas tem que fazer a verificação do sexo
-  const regioes = Object.keys(notIncludedName());
-  const objetoRetornado = { };
-  regioes.forEach((regiao) => {
-    const regis = species.filter((specie) => specie.location === regiao)
-      .reduce((acc, curr) => {
-        acc.push(({ [curr.name]: curr.residents
-          .filter((resident) => resident.sex === param.sex)
-          .map((teste) => teste.name).sort(),
-        }));
-        return acc;
-      }, []);
-    objetoRetornado[regiao] = regis;
-  });
-  // return objetoRetornado.NE
-  console.log(objetoRetornado.NW);
-  return objetoRetornado;
-};
-// console.log(objetoIncludeSex);
-console.log(includeSex({ sex: 'female' }));
+// const includeSexSorted = (param) => { // Se o parametro possui sex
+//   const regioes = Object.keys(notIncludedName());
+//   const objetoRetornado = { };
+//   regioes.forEach((regiao) => {
+//     const regis = species.filter((specie) => specie.location === regiao)
+//       .reduce((acc, curr) => {
+//         acc.push(({ [curr.name]: curr.residents
+//           .filter((resident) => resident.sex === param.sex)
+//           .map((teste) => teste.name).sort(),
+//         }));
+//         return acc;
+//       }, []);
+//     objetoRetornado[regiao] = regis;
+//   });
+//   return objetoRetornado;
+// };
 
-function getAnimalMap(options) { // função que chama funções
-  // const { includeNames, sorted, sex} = options;
-  if (!options || !options.includeNames) {
+// const includeSex = (param) => { // Se o parametro possui sex
+//   const regioes = Object.keys(notIncludedName());
+//   const objetoRetornado = { };
+//   if (param.sorted) {
+//     return includeSexSorted(); // mesma coisa só botei um sort
+//   }
+//   regioes.forEach((regiao) => {
+//     const regis = species.filter((specie) => specie.location === regiao)
+//       .reduce((acc, curr) => {
+//         acc.push(({ [curr.name]: curr.residents
+//           .filter((resident) => resident.sex === param.sex)
+//           .map((teste) => teste.name),
+//         }));
+//         return acc;
+//       }, []);
+//     objetoRetornado[regiao] = regis;
+//   });
+//   return objetoRetornado.NW;
+// };
+
+// console.log(includeSex({ includeNames: true, sex: 'female' }));
+
+function getAnimalMap(options) { // mas se eu passar o parametro que foi passado ali já vai testar nos if não, sim, mas hmmm pera acho que eu descostruo de uma forma burra
+  if (!options) {
     return notIncludedName();
   }
-  if (includeNames) {
-    return includeNames();
-  }
-  if (options.sorted) {
-    return includeSorted();
-  }
+  includeNames(options);// fui
 }
 module.exports = getAnimalMap;

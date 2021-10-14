@@ -1,17 +1,36 @@
 const data = require('../data/zoo_data');
 
-// const dados = employees.map((employer) => employer);
+const { employees, species } = data;
+
+const semParametro = () => {
+  const employers = employees.map((employer) => ({ id: employer.id,
+    fullName: `${employer.firstName} ${employer.lastName}`,
+    species: species.filter((specie) => employer.responsibleFor.includes(specie.id))
+      .map((algo) => algo.name),
+    locations: species.filter((specie) => employer.responsibleFor.includes(specie.id))
+      .map((algo) => algo.location), // tirar do array o que?
+  }));
+  return employers;
+};
+
+const comParametro = (param) => {
+  const [retorno] = semParametro().filter((employer) => employer.fullName.includes(param.name)
+  || employer.id.includes(param.id));
+  if (retorno !== undefined) {
+    return retorno;
+  }
+  throw new Error('Informações inválidas');
+};
+
+console.log(comParametro({ name: 'Sharonda' }));
+
 function getEmployeesCoverage(parametro) {
-  // const { employees } = data;
-  // // const { species } = data;
-  // if (!parametro) {
-  // // const speciesSupervisionadas = species.filter((specie) => )
-  //   const employers = employees.map((employer) => ({ id: employer.id, fullName: `${employer.firstName} ${employer.lastName}`, species: employer.responsibleFor }));
-  //   // .map((specie) => specie.species);
-  //   // .filter(())
-  //   return employers;
-  // }
-} //
-// console.log(getEmployeesCoverage({ name: 'Sharonda' }));
-console.log(getEmployeesCoverage());
+  if (!parametro) {
+    return semParametro();
+  } if (parametro) {
+    return comParametro(parametro);
+  }
+}// mano sei lá, essa merda não gosta de mim não mano esse zoom é um lixo
+
+// console.log(getEmployeesCoverage());
 module.exports = getEmployeesCoverage;
