@@ -8,7 +8,7 @@ const semParametro = () => {
     species: species.filter((specie) => employer.responsibleFor.includes(specie.id))
       .map((algo) => algo.name),
     locations: species.filter((specie) => employer.responsibleFor.includes(specie.id))
-      .map((algo) => algo.location), // tirar do array o que?
+      .map((algo) => algo.location),
   }));
   return employers;
 };
@@ -30,7 +30,6 @@ function getEmployeesCoverage(parametro) {
   } if (parametro) {
     return comParametro(parametro);
   }
-}// mano sei lá, essa merda não gosta de mim não mano esse zoom é um lixo
+}
 
-// console.log(getEmployeesCoverage());
 module.exports = getEmployeesCoverage;
