@@ -14,21 +14,21 @@ const notIncludedName = () => { // !options || sem opção incluedNames.
   return objetoRetornado;
 };
 
-const includeNames = () => { // Se o parametro possui incluedName.
-  const regioes = Object.keys(notIncludedName());
-  const objetoRetornado = { };
-  regioes.forEach((regiao) => {
-    const regis = species.filter((specie) => specie.location === regiao)
-      .reduce((acc, curr) => {
-        acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name) }));
-        return acc;
-      }, []);
-    objetoRetornado[regiao] = regis;
-  });
-  return objetoRetornado;
-};
+// const includeNames = () => { // Se o parametro possui incluedName.
+//   const regioes = Object.keys(notIncludedName());
+//   const objetoRetornado = { };
+//   regioes.forEach((regiao) => {
+//     const regis = species.filter((specie) => specie.location === regiao)
+//       .reduce((acc, curr) => {
+//         acc.push(({ [curr.name]: curr.residents.map((nomeAn) => nomeAn.name) }));
+//         return acc;
+//       }, []);
+//     objetoRetornado[regiao] = regis;
+//   });
+//   return objetoRetornado;
+// };
 
-// const includeSorted = () => { // sim, agora quero ver como incluo essa função
+// const includeSorted = () => {
 //   const regioes = Object.keys(notIncludedName());
 //   const objetoRetornado = { };
 //   regioes.forEach((regiao) => {
@@ -63,7 +63,7 @@ const includeNames = () => { // Se o parametro possui incluedName.
 //   const regioes = Object.keys(notIncludedName());
 //   const objetoRetornado = { };
 //   if (param.sorted) {
-//     return includeSexSorted(); // mesma coisa só botei um sort
+//     return includeSexSorted();
 //   }
 //   regioes.forEach((regiao) => {
 //     const regis = species.filter((specie) => specie.location === regiao)
@@ -81,10 +81,10 @@ const includeNames = () => { // Se o parametro possui incluedName.
 
 // console.log(includeSex({ includeNames: true, sex: 'female' }));
 
-function getAnimalMap(options) { // mas se eu passar o parametro que foi passado ali já vai testar nos if não, sim, mas hmmm pera acho que eu descostruo de uma forma burra
+function getAnimalMap(options) {
   if (!options) {
     return notIncludedName();
   }
-  includeNames(options);// fui
+  // includeNames(options);
 }
 module.exports = getAnimalMap;
